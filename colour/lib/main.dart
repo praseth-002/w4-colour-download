@@ -1,12 +1,12 @@
+import 'package:colour/ColourService.dart';
 import 'package:flutter/material.dart';
+import 'ColourService.dart';
 
 void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Home()
-      ),
+      home: Scaffold(body: Home()),
     ),
   );
 }
@@ -22,36 +22,57 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
-  int redTapCount = 0;
-  int blueTapCount = 0;
+  // int redTapCount = 0;
+  // int blueTapCount = 0;
 
-  void _incrementRedTapCount() {
-    setState(() {
-      redTapCount++;
-    });
-  }
+  // void _incrementRedTapCount() {
+  //   setState(() {
+  //     redTapCount++;
+  //   });
+  // }
 
-  void _incrementBlueTapCount() {
-    setState(() {
-      blueTapCount++;
-    });
+  // void _incrementBlueTapCount() {
+  //   setState(() {
+  //     blueTapCount++;
+  //   });
+  // }
+
+  late final ColourService colourService;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    colourService = ColourService();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          _currentIndex == 0
-              ? ColorTapsScreen(
-                redTapCount: redTapCount,
-                blueTapCount: blueTapCount,
-                onRedTap: _incrementRedTapCount,
-                onBlueTap: _incrementBlueTapCount,
-              )
-              : StatisticsScreen(
-                redTapCount: redTapCount,
-                blueTapCount: blueTapCount,
-              ),
+      // body: _currentIndex == 0
+      //     ? ColorTapsScreen(
+      //         redTapCount: redTapCount,
+      //         blueTapCount: blueTapCount,
+      //         onRedTap: _incrementRedTapCount,
+      //         onBlueTap: _incrementBlueTapCount,
+      //       )
+      //     : StatisticsScreen(
+      //         redTapCount: redTapCount,
+      //         blueTapCount: blueTapCount,
+      //       ),
+      body: ListenableBuilder(listenable: colourService, builder: (context, _) {
+        return _currentIndex == 0
+          ? ColorTapsScreen(
+              redTapCount: colourService.redTapCount,
+              blueTapCount: colourService.blueTapCount,
+              onRedTap: colourService.redPlus,
+              onBlueTap: colourService.bluePlus,
+            )
+          : StatisticsScreen(
+              redTapCount: colourService.redTapCount,
+              blueTapCount: colourService.blueTapCount,
+            );
+      }),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
@@ -94,11 +115,7 @@ class ColorTapsScreen extends StatelessWidget {
       body: Column(
         children: [
           ColorTap(type: CardType.red, tapCount: redTapCount, onTap: onRedTap),
-          ColorTap(
-            type: CardType.blue,
-            tapCount: blueTapCount,
-            onTap: onBlueTap,
-          ),
+          ColorTap(type: CardType.blue, tapCount: blueTapCount, onTap: onBlueTap),
         ],
       ),
     );
