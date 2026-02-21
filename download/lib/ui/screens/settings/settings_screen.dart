@@ -1,17 +1,21 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../providers/theme_color_provider.dart';
 import '../../theme/theme.dart';
 import 'widget/theme_color_button.dart';
+import '../../../services/theme_service.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
- 
+  SettingsScreen({super.key});
+  
   @override
   Widget build(BuildContext context) {
+    final themeService = context.watch<ThemeService>();
+
     return Container(
-      color: currentThemeColor.backgroundColor,
+      color: themeService.currentThemeColor.backgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -19,7 +23,7 @@ class SettingsScreen extends StatelessWidget {
           Text(
             "Settings",
             style: AppTextStyles.heading.copyWith(
-              color: currentThemeColor.color,
+              color: themeService.currentThemeColor.color,
             ),
           ),
 
@@ -38,8 +42,10 @@ class SettingsScreen extends StatelessWidget {
                 .map(
                   (theme) => ThemeColorButton(
                     themeColor: theme,
-                    isSelected: theme == currentThemeColor,
-                    onTap: (value) { },
+                    isSelected: theme == themeService.currentThemeColor,
+                    onTap: (theme) => {
+                      themeService.setNewTheme(theme)
+                    },
                   ),
                 )
                 .toList(),

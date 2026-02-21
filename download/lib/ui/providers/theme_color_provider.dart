@@ -11,4 +11,4 @@ enum ThemeColor {
   Color get backgroundColor => color.withAlpha(100);
 }
 
-ThemeColor currentThemeColor = ThemeColor.blue;
+// ThemeColor currentThemeColor = ThemeColor.blue;
