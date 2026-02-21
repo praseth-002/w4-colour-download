@@ -8,7 +8,7 @@ import 'widget/theme_color_button.dart';
 import '../../../services/theme_service.dart';
 
 class SettingsScreen extends StatelessWidget {
-  SettingsScreen({super.key});
+  const SettingsScreen({super.key});
   
   @override
   Widget build(BuildContext context) {

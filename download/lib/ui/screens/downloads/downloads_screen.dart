@@ -1,10 +1,9 @@
 import 'package:download/services/theme_service.dart';
+import 'package:download/ui/screens/downloads/widgets/download_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../providers/theme_color_provider.dart';
 import '../../theme/theme.dart';
 import 'widgets/download_controler.dart';
-
 
 class DownloadsScreen extends StatelessWidget {
   // Create the list of fake ressources
@@ -12,6 +11,7 @@ class DownloadsScreen extends StatelessWidget {
     Ressource(name: "image1.png", size: 120),
     Ressource(name: "image1.png", size: 500),
     Ressource(name: "image3.png", size: 12000),
+    Ressource(name: "nothing.nothing", size: 0)
   ];
 
   final List<DownloadController> controllers = [];
@@ -26,7 +26,7 @@ class DownloadsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeService = context.watch<ThemeService>();
-    
+
     return Container(
       color: themeService.currentThemeColor.backgroundColor,
       child: Column(
@@ -43,6 +43,10 @@ class DownloadsScreen extends StatelessWidget {
           SizedBox(height: 50),
 
           // TODO - Add the Download tiles
+          Column(
+            children: controllers.map((controller) => 
+            DownloadTile(controller: controller)).toList(),
+          ),
         ],
       ),
     );

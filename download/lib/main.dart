@@ -1,8 +1,6 @@
 import 'package:download/services/theme_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'ui/providers/theme_color_provider.dart';
 import 'ui/screens/settings/settings_screen.dart';
 import 'ui/screens/downloads/downloads_screen.dart';
 import 'ui/theme/theme.dart';
@@ -21,7 +19,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
   final List<Widget> _pages = [DownloadsScreen(), SettingsScreen()];
 
